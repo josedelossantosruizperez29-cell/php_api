@@ -4,7 +4,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Cargo;
 use App\Models\Empleados;
-use laravel\Sanctum\Sanctum;
+use Laravel\Sanctum\Sanctum;
 use Database\Factories\EmpleadosFactory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,8 +18,12 @@ class buscar_empleado extends TestCase{
        $empleado = Empleados::factory()->create([
             'id_cargo' => $cargo->id
         ]);
-        $response=$this->getJson("api/empleados/{$empleado->id}");
+        $response=$this->getJson("/api/empleados/{$empleado->id}");
         $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'nombre'=>$empleado->nombre,
+            'apellido'=>$empleado->apellido
+        ]);
 }
 }
 

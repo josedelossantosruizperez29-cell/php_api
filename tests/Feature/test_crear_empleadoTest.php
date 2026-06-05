@@ -1,5 +1,5 @@
 <?php
-// el usuario puede eliminar un empleado solo si esta autenticado
+// el usuario puede crear un empleado solo si esta autenticado
 namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Cargo;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class crear_empleado extends TestCase{
     use RefreshDatabase;
 
-    public function test_puede_eliminar_un_empleado_solo_si_el_usuario_esta_autenticado(): void{
+    public function test_puede_crear_un_empleado_solo_si_el_usuario_esta_autenticado(): void{
         $user = User::factory()->create();
         Sanctum::actingAs($user);
         $cargo=Cargo::factory()->create();
@@ -24,6 +24,8 @@ class crear_empleado extends TestCase{
         ];
         $response=$this->postJson('/api/empleados', $datos);
         $response->assertStatus(201);
+        //verificar que el usuario se creo correctamente en la base de datos
+        $this->assertDatabaseHas('empleados', $datos);
         
 
         

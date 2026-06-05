@@ -18,8 +18,9 @@ class eliminar_empleado extends TestCase{
        $empleado = Empleados::factory()->create([
             'id_cargo' => $cargo->id
         ]);
-        $response=$this->deleteJson("api/empleados/{$empleado->id}");
-        $this->assertDatabaseMissing('empleados', ['id' => $empleado->id]);
+        $response=$this->deleteJson("/api/empleados/{$empleado->id}");
+        //verificar que el empleado se elimino correctamente de la base de datos
         $response->assertStatus(200);
+        $this->assertDatabaseMissing('empleados', ['id' => $empleado->id]);
 }
 }
