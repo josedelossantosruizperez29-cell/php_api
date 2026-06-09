@@ -35,7 +35,7 @@ class CargoController extends Controller
     {
         // funcion para crear un nuevo cargo
         $cargo = Cargo::create($request->all());
-        return response()->json(['message' => 'Cargo creado correctamente', 'Cargo Creado' => $cargo], 200);
+        return response()->json(['message' => 'Cargo creado correctamente', 'Cargo Creado' => $cargo], 201);
     }
 
     /**

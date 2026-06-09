@@ -21,5 +21,9 @@ class EmpleadoTest extends TestCase{
         $response=$this->getJson('api/empleados');
         $response->assertStatus(200);
 }
+   public function test_no_puede_listar_empleados_sin_autenticacion(): void{
+    $response=$this->getJson('api/empleados');
+    $response->assertStatus(401);
+   }
 }
 
