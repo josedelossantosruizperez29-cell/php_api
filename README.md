@@ -8,9 +8,9 @@ API REST desarrollada en Laravel para la gestión de empleados, cargos y funcion
 
 Este proyecto permite realizar operaciones CRUD sobre:
 
-- Empleados
-- Cargos
-- Funciones cargo
+* Empleados
+* Cargos
+* Funciones cargo
 
 Además, protege las rutas mediante autenticación con token Bearer usando Sanctum.
 
@@ -20,12 +20,12 @@ Además, protege las rutas mediante autenticación con token Bearer usando Sanct
 
 Antes de ejecutar el proyecto asegúrate de tener instalado:
 
-- PHP 8.x o superior
-- Composer
-- MySQL
-- Node.js y NPM
-- Git
-- Laravel compatible con la versión del proyecto
+* PHP
+* Composer
+* MySQL
+* Node.js y NPM
+* Git Bash
+* Laravel compatible con la versión del proyecto
 
 ---
 
@@ -46,17 +46,11 @@ composer install
 
 ### 3. Crear el archivo de entorno
 
-Copia el archivo `.env.example` y renómbralo a `.env`.
-
 ```bash
 cp .env.example .env
 ```
 
-En Windows Git Bash también puedes hacerlo manualmente.
-
 ### 4. Configurar la base de datos
-
-Abre el archivo `.env` y ajusta estos datos:
 
 ```env
 DB_CONNECTION=mysql
@@ -79,13 +73,13 @@ php artisan key:generate
 php artisan migrate
 ```
 
-### 7. Ejecutar seeders, si deseas datos de prueba
+### 7. Ejecutar seeders
 
 ```bash
 php artisan db:seed
 ```
 
-Si deseas crear la base de datos desde cero con datos de prueba:
+o
 
 ```bash
 php artisan migrate:fresh --seed
@@ -97,7 +91,7 @@ php artisan migrate:fresh --seed
 php artisan serve
 ```
 
-La aplicación normalmente quedará disponible en:
+La aplicación quedará disponible en:
 
 ```text
 http://127.0.0.1:8000
@@ -105,41 +99,36 @@ http://127.0.0.1:8000
 
 ---
 
-## Autenticación
+# Autenticación
 
-La API utiliza Laravel Sanctum.  
-Para consumir los endpoints protegidos debes enviar el token en la cabecera:
+## Registrar usuario
 
-```http
-Authorization: Bearer TU_TOKEN_AQUI
-```
-## De esta forma nos registramos en caso tal deque nuestro usuario no exista
 ```bash
-curl -X POST http://127.0.0.1:8000/api/register \ -H "Accept: application/json" \ -H "Content-Type: application/json" \ -d "{"name":"Juan Perez","email":"juan@example.com","password":"12345678"}"  
-Respuesta esperada: mensaje de confirmación, datos básicos del usuario y token.
+curl -X POST http://127.0.0.1:8000/api/register -H "Content-Type: application/json" -H "Accept: application/json" -d '{"name":"santos","email":"ruix@gmail.com","password":"123456790"}'
 ```
-### Ejemplo de autenticación con curl de esta forma nos auttenticamos y obtendremos nuestro token el cual nos servira para hacer las peticiones 
+
+Respuesta esperada:
+
+* Usuario creado correctamente.
+* Token de acceso.
+
+## Iniciar sesión
+
 ```bash
-curl -X POST http://127.0.0.1:8000/api/login \ -H "Accept: application/json" \ -H "Content-Type: application/json" \ -d "{"email":"juan@example.com","password":"12345678"}"  
-La respuesta incluye el token que debe copiarse para consumir las rutas protegidas.
+curl -X POST http://127.0.0.1:8000/api/login -H "Content-Type: application/json" -H "Accept: application/json" -d '{"email":"ruix@gmail.com","password":"123456790"}'
 ```
+
+Respuesta esperada:
+
+* Mensaje de autenticación exitosa.
+* Datos del usuario.
+* Token de acceso.
+
+## Ejemplo de uso del token
+
 ```bash
-curl http://127.0.0.1:8000/api/cargos \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/cargos -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
-
----
-
-## Uso de la API
-
-La API organiza sus recursos en tres módulos principales:
-
-- Empleados
-- Cargos
-- Funciones cargo
-
-Cada módulo permite consultar, crear, actualizar y eliminar registros.
 
 ---
 
@@ -148,61 +137,31 @@ Cada módulo permite consultar, crear, actualizar y eliminar registros.
 ## Listar empleados
 
 ```bash
-curl http://127.0.0.1:8000/api/empleados \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/empleados -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
-## Obtener un empleado por ID
+## Obtener empleado por ID
 
 ```bash
-curl http://127.0.0.1:8000/api/empleados/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/empleados/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
 ## Crear empleado
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/empleados \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
--d '{
-    "nombre": "Juan",
-    "apellido": "Pérez",
-    "fecha_nacimiento": "1998-05-10",
-    "fecha_de_ingreso": "2024-01-15",
-    "salario": 2500000,
-    "estado": "activo",
-    "id_cargo": 1
-}'
+curl -X POST http://127.0.0.1:8000/api/empleados -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"nombre":"Juan","apellido":"Perez","fecha_nacimiento":"1998-05-10","fecha_de_ingreso":"2024-01-15","salario":25000,"estado":"activo","id_cargo":1}'
 ```
 
 ## Actualizar empleado
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/empleados/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
--d '{
-    "nombre": "Juan Carlos",
-    "apellido": "Pérez Gómez",
-    "fecha_nacimiento": "1998-05-10",
-    "fecha_de_ingreso": "2024-01-15",
-    "salario": 3000000,
-    "estado": "activo",
-    "id_cargo": 1
-}'
+curl -X PUT http://127.0.0.1:8000/api/empleados/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"nombre":"Juan Carlos","apellido":"Perez Gomez","fecha_nacimiento":"1998-05-10","fecha_de_ingreso":"2024-01-15","salario":3000000,"estado":"activo","id_cargo":1}'
 ```
 
 ## Eliminar empleado
 
 ```bash
-curl -X DELETE http://127.0.0.1:8000/api/empleados/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl -X DELETE http://127.0.0.1:8000/api/empleados/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
 ---
@@ -212,149 +171,90 @@ curl -X DELETE http://127.0.0.1:8000/api/empleados/1 \
 ## Listar cargos
 
 ```bash
-curl http://127.0.0.1:8000/api/cargos \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/cargos -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
-## Obtener un cargo por ID
+## Obtener cargo por ID
 
 ```bash
-curl http://127.0.0.1:8000/api/cargos/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/cargos/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
 ## Crear cargo
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/cargos \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
--d '{
-    "nombre_cargo": "Desarrollador Backend",
-    "descripcion": "Encargado de desarrollar y mantener la API"
-}'
+curl -X POST http://127.0.0.1:8000/api/cargos -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"nombre_cargo":"Desarrollador Backend","descripcion":"Encargado de desarrollar y mantener la API"}'
 ```
 
 ## Actualizar cargo
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/cargos/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
--d '{
-    "nombre_cargo": "Arquitecto de Software",
-    "descripcion": "Diseña la estructura técnica del sistema"
-}'
+curl -X PUT http://127.0.0.1:8000/api/cargos/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"nombre_cargo":"Arquitecto de Software","descripcion":"Disena la estructura tecnica del sistema"}'
 ```
 
 ## Eliminar cargo
 
 ```bash
-curl -X DELETE http://127.0.0.1:8000/api/cargos/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl -X DELETE http://127.0.0.1:8000/api/cargos/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
 ---
 
-# 3. Funciones cargo
+# 3. Funciones Cargo
 
 ## Listar funciones cargo
 
 ```bash
-curl http://127.0.0.1:8000/api/funcionCargos \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/funcionCargos -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
-## Obtener una función cargo por ID
+## Obtener función cargo por ID
 
 ```bash
-curl http://127.0.0.1:8000/api/funcionCargos/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl http://127.0.0.1:8000/api/funcionCargos/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
 ## Crear función cargo
 
 ```bash
-curl -X POST http://127.0.0.1:8000/api/funcionCargos \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
--d '{
-    "descripcion_funcion": "Gestionar la base de datos",
-    "estado": "activo",
-    "id_cargo": 1
-}'
+curl -X POST http://127.0.0.1:8000/api/funcionCargos -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"descripcion_funcion":"Gestionar la base de datos","estado":"activo","id_cargo":1}'
 ```
 
 ## Actualizar función cargo
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/funcionCargos/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
--d '{
-    "descripcion_funcion": "Administrar servidores",
-    "estado": "inactivo",
-    "id_cargo": 1
-}'
+curl -X PUT http://127.0.0.1:8000/api/funcionCargos/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Content-Type: application/json" -H "Accept: application/json" -d '{"descripcion_funcion":"Administrar servidores","estado":"inactivo","id_cargo":1}'
 ```
 
 ## Eliminar función cargo
 
 ```bash
-curl -X DELETE http://127.0.0.1:8000/api/funcionCargos/1 \
--H "Authorization: Bearer TU_TOKEN_AQUI" \
--H "Accept: application/json"
+curl -X DELETE http://127.0.0.1:8000/api/funcionCargos/1 -H "Authorization: Bearer TU_TOKEN_AQUI" -H "Accept: application/json"
 ```
 
 ---
 
-## Respuestas esperadas
+# Ejecución de pruebas
 
-### Éxito
-
-- `200 OK` para consultas, actualizaciones y eliminaciones exitosas
-- `201 Created` para creación de registros
-
-### Errores comunes
-
-- `401 Unauthorized`: no se envió token o el token no es válido
-- `404 Not Found`: el registro no existe
-- `422 Unprocessable Content`: datos inválidos o campos requeridos faltantes
-
----
-
-## Ejecución de pruebas
-
-El proyecto cuenta con pruebas automatizadas para validar autenticación y CRUD.
-
-### Ejecutar todas las pruebas
+## Ejecutar todas las pruebas
 
 ```bash
 php artisan test
 ```
 
-### Ejecutar pruebas de cargos
+## Ejecutar pruebas de cargos
 
 ```bash
 php artisan test --filter=CargoTest
 ```
 
-### Ejecutar pruebas de funciones cargo
+## Ejecutar pruebas de funciones cargo
 
 ```bash
 php artisan test --filter=FuncionCargoTest
 ```
 
-### Ejecutar pruebas de empleados
+## Ejecutar pruebas de empleados
 
 ```bash
 php artisan test --filter=EmpleadoTest
@@ -362,27 +262,6 @@ php artisan test --filter=EmpleadoTest
 
 ---
 
-## Validación con Sanctum
+# Autor
 
-Las rutas protegidas requieren autenticación.  
-El formato correcto del encabezado es:
-
-```http
-Authorization: Bearer TU_TOKEN_AQUI
-```
-
-Sin este token la API responderá con acceso denegado.
-
----
-
-## Notas importantes
-
-- Para probar correctamente los endpoints primero debes autenticarte.
-- Los ejemplos de `curl` están pensados para Git Bash o terminal similar.
-- Si tu proyecto usa nombres de rutas diferentes, reemplaza el endpoint por el que aparezca en `php artisan route:list`.
-- Antes de enviar un `POST` o `PUT`, asegúrate de que el `id_cargo` exista si el campo es requerido por la relación.
-
----
-
-## Autor
 Jose de Los Santos Ruiz Perez
