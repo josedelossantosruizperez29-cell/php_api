@@ -107,6 +107,11 @@ http://127.0.0.1:8000
 curl -X POST http://127.0.0.1:8000/api/register -H "Content-Type: application/json" -H "Accept: application/json" -d '{"name":"santos","email":"ruix@gmail.com","password":"123456790"}'
 ```
 
+## Cerrar seccion 
+```bash
+curl -X POST http://127.0.0.1:8000/api/logout -H "Authorization: Bearer 5|241zz3hi9p1mJiI4kXCGprLb2xDGLdGlpkIPkn3tb282cc85" -H "Accept: application/json" 
+```
+
 Respuesta esperada:
 
 * Usuario creado correctamente.
