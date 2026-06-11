@@ -16,11 +16,11 @@ class Cargo extends Model
 
     public function empleados()
     {
-        return $this->hasMany(Empleados::class);
+        return $this->hasMany(Empleados::class, 'id_cargo');
     }
 
-    public function funcionCargo()
+    public function funcioCargo()
     {
-        return $this->hasMany(FuncionCargo::class);
+        return $this->hasMany(FuncionCargo::class, 'id_cargo');
     }
 }
