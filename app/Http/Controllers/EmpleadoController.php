@@ -86,4 +86,24 @@ class EmpleadoController extends Controller
         $empleado->delete();
         return response()->json(['message' => 'Empleado eliminado correctamente'], 200);
     }
+
+    // funcion para mostrar los detalles empleados nombre , nombre de cargo,salaario y funciond de su cargo
+    public function detalle_empleado($id){
+        $empleado = Empleados::with([
+            'cargo',
+            'cargo.funcioCargo',
+        ])->find($id);
+        if (!$empleado) {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+        return response()->json([
+            'empleado' => $empleado->nombre.' '.$empleado->apellido,
+            'cargo' => $empleado->cargo->nombre_cargo,
+            'salario' => $empleado->salario,
+            'funciones' => $empleado->cargo->funcioCargo->pluck('descripcion_funcion'),
+        ]); 
+        
+
+
+    }
 }
