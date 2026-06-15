@@ -7,7 +7,7 @@ use App\Models\Empleados;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-class crear_empleado extends TestCase{
+class Test_crear_empleadoTest extends TestCase{
     use RefreshDatabase;
 
     public function test_puede_crear_un_empleado_solo_si_el_usuario_esta_autenticado(): void{
