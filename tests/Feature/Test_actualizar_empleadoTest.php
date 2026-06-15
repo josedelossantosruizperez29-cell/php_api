@@ -7,7 +7,7 @@ use App\Models\Empleados;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-class Test_actualizar_empleado extends TestCase{
+class Test_actualizar_empleadoTest extends TestCase{
     use RefreshDatabase;
 
     public function test_puede_actualizar_un_empleado_solo_si_el_usuario_esta_autenticado(): void{

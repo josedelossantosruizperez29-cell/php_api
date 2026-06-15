@@ -8,7 +8,7 @@ use Laravel\Sanctum\Sanctum;
 use Database\Factories\EmpleadosFactory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-class eliminar_empleado extends TestCase{
+class test_eliminar_empleadoTest extends TestCase{
     use RefreshDatabase;
 
     public function test_puede_eliminar_un_empleado_solo_si_el_usuario_esta_autenticado(): void{
