@@ -72,7 +72,7 @@ git clone URL_DEL_REPOSITORIO
 Despues entra a la carpeta del proyecto:
 
 ```bash
-cd proyecto_rds
+cd nombre_del_proyecto
 ```
 
 > Reemplaza `URL_DEL_REPOSITORIO` por la URL real del repositorio.
@@ -107,7 +107,7 @@ Este comando instala las dependencias de frontend definidas en `package.json`.
 
 Laravel usa un archivo `.env` para guardar la configuracion local del proyecto.
 
-Copia el archivo de ejemplo:
+Copia el archivo de entorno de ejemplo ejecutando el siguiente comando:
 
 ```bash
 cp .env.example .env
@@ -225,12 +225,6 @@ La API quedara disponible en:
 
 ```text
 http://127.0.0.1:8000
-```
-
-Si necesitas levantar Vite para los assets del frontend:
-
-```bash
-npm run dev
 ```
 
 La URL base para consumir la API sera:
