@@ -44,7 +44,7 @@ Antes de instalar el proyecto, asegurate de tener instalado:
 
 - PHP 8.3 o superior
 - Composer
-- MySQL o MariaDB
+- MySQL
 - Node.js y NPM
 - Git
 - Laravel compatible con la version del proyecto
@@ -55,7 +55,6 @@ El proyecto usa:
 - Laravel `^13.8`
 - Laravel Sanctum `^4.0`
 - PHP `^8.3`
-- Vite para los assets del frontend
 
 ---
 
@@ -66,7 +65,7 @@ El proyecto usa:
 Primero clona el repositorio en tu maquina:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/josedelossantosruizperez29-cell/proyecto_rds.git
 ```
 
 Despues entra a la carpeta del proyecto:
@@ -74,8 +73,6 @@ Despues entra a la carpeta del proyecto:
 ```bash
 cd nombre_del_proyecto
 ```
-
-> Reemplaza `URL_DEL_REPOSITORIO` por la URL real del repositorio.
 
 ---
 
@@ -806,7 +803,7 @@ GET /api/funcionCargos/{id}
 ```
 
 ```bash
-curl http://127.0.0.1:8000/api/funcionCargos/6 \
+curl http://127.0.0.1:8000/api/funcionCargos/7 \
   -H "Authorization: Bearer TU_TOKEN_AQUI" \
   -H "Accept: application/json"
 ```
@@ -835,7 +832,7 @@ curl -X POST http://127.0.0.1:8000/api/funcionCargos \
   -d '{
     "descripcion_funcion": "Gestionar la base de datos",
     "estado": "activo",
-    "id_cargo": 8
+    "id_cargo": 1
   }'
 ```
 
@@ -861,14 +858,14 @@ PUT /api/funcionCargos/{id}
 ```
 
 ```bash
-curl -X PUT http://127.0.0.1:8000/api/funcionCargos/1 \
+curl -X PUT http://127.0.0.1:8000/api/funcionCargos/6 \
   -H "Authorization: Bearer TU_TOKEN_AQUI" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{
     "descripcion_funcion": "Administrar servidores",
     "estado": "inactivo",
-    "id_cargo": 9
+    "id_cargo": 2
   }'
 ```
 
@@ -895,7 +892,7 @@ DELETE /api/funcionCargos/{id}
 ```
 
 ```bash
-curl -X DELETE http://127.0.0.1:8000/api/funcionCargos/1 \
+curl -X DELETE http://127.0.0.1:8000/api/funcionCargos/7 \
   -H "Authorization: Bearer TU_TOKEN_AQUI" \
   -H "Accept: application/json"
 ```
@@ -1060,3 +1057,4 @@ Tambien existen pruebas relacionadas con crear, buscar, actualizar y eliminar em
 ## Autor
 
 Jose de Los Santos Ruiz Perez
+
