@@ -570,7 +570,7 @@ curl -X PUT http://127.0.0.1:8000/api/empleados/1 \
     "apellido": "Perez Gomez",
     "fecha_nacimiento": "1998-05-10",
     "fecha_de_ingreso": "2024-01-15",
-    "salario": 3000000,
+    "salario": 30000,
     "estado": "activo",
     "id_cargo": 1
   }'
@@ -806,7 +806,7 @@ GET /api/funcionCargos/{id}
 ```
 
 ```bash
-curl http://127.0.0.1:8000/api/funcionCargos/1 \
+curl http://127.0.0.1:8000/api/funcionCargos/6 \
   -H "Authorization: Bearer TU_TOKEN_AQUI" \
   -H "Accept: application/json"
 ```
@@ -835,7 +835,7 @@ curl -X POST http://127.0.0.1:8000/api/funcionCargos \
   -d '{
     "descripcion_funcion": "Gestionar la base de datos",
     "estado": "activo",
-    "id_cargo": 1
+    "id_cargo": 8
   }'
 ```
 
@@ -868,7 +868,7 @@ curl -X PUT http://127.0.0.1:8000/api/funcionCargos/1 \
   -d '{
     "descripcion_funcion": "Administrar servidores",
     "estado": "inactivo",
-    "id_cargo": 1
+    "id_cargo": 9
   }'
 ```
 
